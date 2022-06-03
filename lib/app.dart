@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nao_entre_em_panico/pages/home.dart';
+import 'package:nao_entre_em_panico/pages/home/home.dart';
 
 import 'core/tema/tema.dart';
 
