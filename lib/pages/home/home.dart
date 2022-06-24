@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = GetIt.I.get<HomeStore>();
     final telas = <Widget>[
-      VisaoGeralGastosView(),
+      VisaoGeralGastos(),
       CreditosDebitosView(),
       EstadoFinanceiroView(),
     ];

@@ -6,6 +6,8 @@ class CardVisaoGeralDia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Material(
       elevation: 1.5,
       borderRadius: BorderRadius.circular(8.0),

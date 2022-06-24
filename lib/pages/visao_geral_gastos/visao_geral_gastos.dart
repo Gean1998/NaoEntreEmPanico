@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:nao_entre_em_panico/app_store.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_ano.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_dia.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_mes.dart';
 
-class VisaoGeralGastosView extends StatefulWidget {
-  const VisaoGeralGastosView({Key? key}) : super(key: key);
+class VisaoGeralGastos extends StatefulWidget {
+  const VisaoGeralGastos({Key? key}) : super(key: key);
 
   @override
-  State<VisaoGeralGastosView> createState() => _VisaoGeralGastosViewState();
+  State<VisaoGeralGastos> createState() => _VisaoGeralGastosState();
 }
 
-class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
-  var controller = TextEditingController(text: '');
-
+class _VisaoGeralGastosState extends State<VisaoGeralGastos> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final appStore = GetIt.I.get<AppStore>();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -27,20 +29,32 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
               showDialog(
                 context: context,
                 builder: (_) => SimpleDialog(
-                  title: const Text('Definir nome de usuário(a)'),
+                  title: const Text('Definir o nome de usuário(a)'),
                   titleTextStyle:
                       const TextStyle(fontSize: 16.0, color: Colors.black38),
                   contentPadding: const EdgeInsets.all(16.0),
                   children: [
                     TextFormField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(hintText: 'Digite seu nome...'),
+                      decoration: const InputDecoration(
+                        hintText: 'Definir nome...',
+                      ),
+                      initialValue: appStore.nome,
+                      onChanged: (String? value) {
+                        appStore.nome = value ?? '';
+                      },
                     ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(context);
+                      onPressed: () {
+                        if (appStore.nome.trim().isNotEmpty) {
+                          appStore.definirNome(appStore.nome);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('O nome não pode estar vazio!'),
+                            ),
+                          );
+                        }
                       },
                       child: const Text('Salvar'),
                     ),
@@ -48,7 +62,12 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
                 ),
               );
             },
-            child: Observer(builder: (_) => Text('nome')),
+            child: Observer(
+              builder: (_) {
+                return Text(
+                    appStore.nome.isEmpty ? 'Digite seu nome' : appStore.nome);
+              },
+            ),
           ),
         ),
         Column(
