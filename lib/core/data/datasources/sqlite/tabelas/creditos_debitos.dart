@@ -1,6 +1,6 @@
 class TabelaCreditosDebitos {
   static const creditos_debitos = 'CREATE TABLE creditos_debitos(' +
-      ' Id INTEGER NOT NULL,' +
+      ' Id TEXT NOT NULL,' +
       ' Data TEXT NULL,' +
       ' Valor REAL NULL,' +
       ' Tipo TEXT NULL,' +

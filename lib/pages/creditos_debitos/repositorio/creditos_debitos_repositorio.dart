@@ -16,7 +16,7 @@ class CreditosDebitosRepositorio {
     ''';
 
       final db = await BancoSQLite().obterConexao();
-      db.rawInsert(sql, [
+      await db.rawInsert(sql, [
         model.id,
         model.data,
         model.valor,

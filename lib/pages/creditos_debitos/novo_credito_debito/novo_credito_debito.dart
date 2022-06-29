@@ -22,12 +22,14 @@ class _NovoCreditoDebitoViewState extends State<NovoCreditoDebitoView> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: store.controllerValor,
                 decoration: const InputDecoration(hintText: 'Valor'),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: store.controllerDescricao,
                 decoration: const InputDecoration(hintText: 'Descrição'),
               ),
             ),
@@ -44,7 +46,9 @@ class _NovoCreditoDebitoViewState extends State<NovoCreditoDebitoView> {
                         firstDate: DateTime(2021),
                         lastDate: DateTime(2030),
                         fieldLabelText: 'Data',
-                      ).then((value) {});
+                      ).then((value) {
+                        store.data = value;
+                      });
                     },
                     icon: const Icon(
                       Icons.date_range,
@@ -65,12 +69,14 @@ class _NovoCreditoDebitoViewState extends State<NovoCreditoDebitoView> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: store.controllerValor,
                 decoration: const InputDecoration(hintText: 'Valor'),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: store.controllerDescricao,
                 decoration: const InputDecoration(hintText: 'Descrição'),
               ),
             ),
@@ -87,7 +93,9 @@ class _NovoCreditoDebitoViewState extends State<NovoCreditoDebitoView> {
                         firstDate: DateTime(2021),
                         lastDate: DateTime(2030),
                         fieldLabelText: 'Data',
-                      ).then((value) {});
+                      ).then((value) {
+                        store.data = value;
+                      });
                     },
                     icon: const Icon(
                       Icons.date_range,
@@ -109,12 +117,14 @@ class _NovoCreditoDebitoViewState extends State<NovoCreditoDebitoView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          await store.salvar();
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Lançamento salvo!')),
           );
         },
         child: Visibility(
-          visible: false,
+          visible: !store.salvando,
           replacement: const CircularProgressIndicator(),
           child: const Icon(Icons.save, size: 32.0),
         ),
