@@ -5,6 +5,7 @@ import 'package:nao_entre_em_panico/app_store.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_ano.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_dia.dart';
 import 'package:nao_entre_em_panico/pages/visao_geral_gastos/components/card/card_mes.dart';
+import 'package:nao_entre_em_panico/pages/visao_geral_gastos/visao_geral_gastos_store.dart';
 
 class VisaoGeralGastos extends StatefulWidget {
   const VisaoGeralGastos({Key? key}) : super(key: key);
@@ -18,6 +19,9 @@ class _VisaoGeralGastosState extends State<VisaoGeralGastos> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final appStore = GetIt.I.get<AppStore>();
+    final store = GetIt.I.get<VisaoGeralGastosStore>();
+
+    store.atualizaValores();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,8 +83,8 @@ class _VisaoGeralGastosState extends State<VisaoGeralGastos> {
             Observer(
               builder: (_) {
                 return Text(
-                  'R\$20',
-                  style: TextStyle(
+                  'R\$${store.creditoRestante}',
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w700,
                     color: 20 > 0 ? Colors.green : Colors.red,

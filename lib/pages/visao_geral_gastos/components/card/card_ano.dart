@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:nao_entre_em_panico/pages/visao_geral_gastos/visao_geral_gastos_store.dart';
 
 class CardVisaoGeralAno extends StatelessWidget {
   const CardVisaoGeralAno({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = GetIt.I.get<VisaoGeralGastosStore>();
+
     return Material(
       elevation: 1.5,
       borderRadius: BorderRadius.circular(8.0),
@@ -25,12 +29,13 @@ class CardVisaoGeralAno extends StatelessWidget {
             ),
             Observer(
               builder: (_) {
-                return Text('${DateTime.now().year}: R\$5');
+                return Text('${DateTime.now().year}: R\$${store.valorAno}');
               },
             ),
             Observer(
               builder: (_) {
-                return Text('${DateTime.now().year - 1}: R\$0');
+                return Text(
+                    '${DateTime.now().year - 1}: R\$${store.valorAnoAnterior}');
               },
             ),
           ],

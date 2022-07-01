@@ -19,7 +19,6 @@ abstract class _CreditoDebitoStoreBase with Store {
   _CreditoDebitoStoreBase() {
     id = const Uuid().v4();
     data = DateTime.now();
-    tipo = index == 0 ? 'Crédito' : 'Débito';
 
     controllerValor.addListener(() {
       if (controllerValor.text.isNotEmpty) {
@@ -58,6 +57,7 @@ abstract class _CreditoDebitoStoreBase with Store {
 
   @action
   Future<void> salvar() async {
+    tipo = index == 0 ? 'Crédito' : 'Débito';
     salvando = true;
     await repositorio.salvarCreditoDebito(toModel());
     salvando = false;

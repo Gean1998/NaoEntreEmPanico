@@ -8,13 +8,15 @@ class EstadoFinanceiroView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
-        CardEstadoFinanceiroDia(),
-        CardEstadoFinanceiroMes(),
-        CardEstadoFinanceiroAno(),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          CardEstadoFinanceiroDia(),
+          CardEstadoFinanceiroMes(),
+          CardEstadoFinanceiroAno(),
+        ],
+      ),
     );
   }
 }
